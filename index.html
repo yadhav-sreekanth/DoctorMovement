@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Movement Physiotherapy Clinic</title>
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --teal: #1a9ca0;
+            --teal-dark: #0d6e72;
+            --teal-light: #4ecdc4;
+            --red: #e63329;
+            --navy: #0f2d3d;
+            --cream: #f8f5f0;
+            --white: #ffffff;
+            --grey: #6b7280;
+            --light: #eef9f9;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--navy);
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--teal);
+            border-radius: 3px;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 30px rgba(26, 156, 160, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            height: 72px;
+        }
+
+        .nav-logo img {
+            height: 54px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 500;
+            font-size: 0.92rem;
+            letter-spacing: 0.03em;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--teal);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .nav-links a:hover {
+            color: var(--teal);
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-cta {
+            background: var(--red);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(230, 51, 41, 0.3);
+        }
+
+        .nav-cta:hover {
+            background: #c42b22;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(230, 51, 41, 0.4);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--navy);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 0;
+            background: white;
+            border-top: 1px solid #eee;
+            position: absolute;
+            top: 72px;
+            left: 0;
+            right: 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .mobile-menu.open {
+            max-height: 400px;
+            display: flex;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 500;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .mobile-menu a:hover {
+            background: var(--light);
+            color: var(--teal);
+        }
+
+        .mobile-menu .mobile-cta {
+            background: var(--red);
+            color: #fff;
+            margin: 16px;
+            border-radius: 50px;
+            justify-content: center;
+            border-bottom: none;
+        }
+
+        .mobile-menu .mobile-cta:hover {
+            background: #c42b22;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--navy) 0%, #0d4a5a 50%, #0a3d4d 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 72px;
+        }
+
+        .hero-bg-circles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .hero-bg-circles span {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(26, 156, 160, 0.15);
+            animation: pulse-ring 4s ease-in-out infinite;
+        }
+
+        .hero-bg-circles span:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .hero-bg-circles span:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            top: -50px;
+            right: -50px;
+            animation-delay: 0.5s;
+        }
+
+        .hero-bg-circles span:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 50px;
+            right: 50px;
+            animation-delay: 1s;
+            background: rgba(26, 156, 160, 0.05);
+        }
+
+        .hero-bg-circles span:nth-child(4) {
+            width: 300px;
+            height: 300px;
+            bottom: -100px;
+            left: -100px;
+            animation-delay: 2s;
+        }
+
+        @keyframes pulse-ring {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        .floating-dots {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .floating-dots span {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--teal-light);
+            opacity: 0.4;
+            animation: float-dot 6s ease-in-out infinite;
+        }
+
+        .floating-dots span:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-dots span:nth-child(2) {
+            top: 60%;
+            left: 20%;
+            animation-delay: 1s;
+            width: 4px;
+            height: 4px;
+        }
+
+        .floating-dots span:nth-child(3) {
+            top: 30%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .floating-dots span:nth-child(4) {
+            top: 70%;
+            left: 70%;
+            animation-delay: 3s;
+            width: 8px;
+            height: 8px;
+        }
+
+        .floating-dots span:nth-child(5) {
+            top: 10%;
+            left: 50%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float-dot {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(26, 156, 160, 0.2);
+            border: 1px solid rgba(26, 156, 160, 0.4);
+            color: var(--teal-light);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .hero-badge i {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            color: var(--white);
+            line-height: 1.1;
+            font-weight: 900;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-title .accent {
+            color: var(--teal-light);
+        }
+
+        .hero-title .red-accent {
+            color: #ff6b6b;
+        }
+
+        .hero-desc {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 36px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 30px rgba(230, 51, 41, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            animation: call-pulse 3s ease-in-out 2s infinite;
+        }
+
+        @keyframes call-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 6px 30px rgba(230, 51, 41, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 6px 50px rgba(230, 51, 41, 0.7), 0 0 0 10px rgba(230, 51, 41, 0.1);
+            }
+        }
+
+        .btn-primary:hover {
+            background: #c42b22;
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 28px;
+            margin-top: 40px;
+            animation: fadeInUp 0.8s ease 0.8s both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--teal-light);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 4px;
+            letter-spacing: 0.04em;
+        }
+
+        .stat-divider {
+            width: 1px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-image-wrap {
+            position: relative;
+            animation: fadeInRight 1s ease 0.3s both;
+        }
+
+        .hero-img-frame {
+            border-radius: 32px 8px 32px 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-img-frame img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13, 78, 90, 0.4) 0%, transparent 60%);
+        }
+
+        .hero-floating-card {
+            position: absolute;
+            bottom: 30px;
+            left: -30px;
+            background: white;
+            border-radius: 16px;
+            padding: 16px 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            animation: float-card 4s ease-in-out infinite;
+        }
+
+        @keyframes float-card {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .hero-fc-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .hero-fc-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--navy);
+        }
+
+        .hero-fc-sub {
+            font-size: 0.75rem;
+            color: var(--grey);
+            margin-top: 2px;
+        }
+
+        .hero-floating-card2 {
+            position: absolute;
+            top: 30px;
+            right: -20px;
+            background: var(--teal);
+            border-radius: 16px;
+            padding: 14px 18px;
+            box-shadow: 0 20px 60px rgba(26, 156, 160, 0.4);
+            animation: float-card 4s ease-in-out 1s infinite;
+        }
+
+        .hero-fc2-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .hero-fc2-value {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 4px;
+        }
+
+        .hero-green-dot {
+            width: 10px;
+            height: 10px;
+            background: #4ade80;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== TICKER ===== */
+        .ticker-wrap {
+            background: var(--teal);
+            overflow: hidden;
+            padding: 14px 0;
+        }
+
+        .ticker-inner {
+            display: flex;
+            animation: ticker 25s linear infinite;
+            width: max-content;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 40px;
+            color: white;
+            font-size: 0.88rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .ticker-item i {
+            opacity: 0.7;
+        }
+
+        .ticker-sep {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 1.2rem;
+        }
+
+        @keyframes ticker {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 90px 24px;
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--teal);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--teal);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: var(--navy);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            color: var(--grey);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 540px;
+        }
+
+        /* ===== ABOUT ===== */
+        #about {
+            background: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .about-img-wrap {
+            position: relative;
+        }
+
+        .about-img {
+            border-radius: 24px 4px 24px 4px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--red);
+            color: #fff;
+            border-radius: 20px;
+            padding: 20px 24px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(230, 51, 41, 0.3);
+        }
+
+        .about-badge-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .about-badge-txt {
+            font-size: 0.72rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .about-features {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .about-feat {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            border-radius: 12px;
+            transition: background 0.2s;
+        }
+
+        .about-feat:hover {
+            background: var(--light);
+        }
+
+        .about-feat-icon {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            background: var(--light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--teal);
+            font-size: 1.1rem;
+        }
+
+        .about-feat-title {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 3px;
+        }
+
+        .about-feat-desc {
+            font-size: 0.87rem;
+            color: var(--grey);
+            line-height: 1.5;
+        }
+
+        /* ===== SERVICES ===== */
+        #services {
+            background: var(--cream);
+        }
+
+        .services-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 24px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 32px 28px;
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(26, 156, 160, 0.08);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(26, 156, 160, 0.2);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--teal);
+            margin-bottom: 20px;
+            transition: all 0.4s;
+        }
+
+        .service-card:hover .service-icon {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .service-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+            transition: color 0.4s;
+        }
+
+        .service-card:hover .service-name {
+            color: #fff;
+        }
+
+        .service-desc {
+            font-size: 0.87rem;
+            color: var(--grey);
+            line-height: 1.6;
+            transition: color 0.4s;
+        }
+
+        .service-card:hover .service-desc {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .service-num {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(26, 156, 160, 0.06);
+            line-height: 1;
+            transition: color 0.4s;
+        }
+
+        .service-card:hover .service-num {
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== TEAM ===== */
+        #team {
+            background: var(--navy);
+        }
+
+        .team-section-tag {
+            color: var(--teal-light);
+        }
+
+        .team-section-tag::before {
+            background: var(--teal-light);
+        }
+
+        .team-title {
+            color: var(--white);
+        }
+
+        .team-desc {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 48px;
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.4s;
+        }
+
+        .team-card:hover {
+            background: rgba(26, 156, 160, 0.15);
+            border-color: rgba(26, 156, 160, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .team-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: white;
+            box-shadow: 0 10px 40px rgba(26, 156, 160, 0.4);
+        }
+
+        .team-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .team-role {
+            color: var(--teal-light);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .team-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .team-tag {
+            background: rgba(26, 156, 160, 0.2);
+            color: var(--teal-light);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+
+        /* ===== CTA BAND ===== */
+        .cta-band {
+            background: linear-gradient(135deg, var(--red) 0%, #c42b22 100%);
+            padding: 70px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-band::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 14px;
+        }
+
+        .cta-sub {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .cta-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: white;
+            color: var(--red);
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            text-decoration: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .cta-phone:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-phone .phone-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--red);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            animation: ring 2s ease-in-out infinite;
+        }
+
+        @keyframes ring {
+
+            0%,
+            100% {
+                transform: rotate(0);
+            }
+
+            10% {
+                transform: rotate(-15deg);
+            }
+
+            20% {
+                transform: rotate(15deg);
+            }
+
+            30% {
+                transform: rotate(0);
+            }
+        }
+
+        .cta-note {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.83rem;
+            margin-top: 18px;
+        }
+
+        /* ===== HOURS ===== */
+        #hours {
+            background: var(--white);
+        }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .hours-table {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .hours-row:hover {
+            background: var(--light);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-row.today {
+            background: #eef9f9;
+            border-left: 4px solid var(--teal);
+        }
+
+        .hours-day {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .hours-time {
+            color: var(--teal);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .hours-note {
+            font-size: 0.72rem;
+            color: var(--grey);
+            margin-top: 2px;
+        }
+
+        .map-wrap {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+            height: 380px;
+        }
+
+        .map-wrap iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .address-card {
+            background: var(--navy);
+            color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .address-icon {
+            color: var(--teal-light);
+            font-size: 1.3rem;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .address-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* ===== CONTACT ===== */
+        #contact {
+            background: var(--cream);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .contact-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            border: 1.5px solid transparent;
+        }
+
+        .contact-card:hover {
+            border-color: var(--teal);
+            transform: translateX(4px);
+        }
+
+        .contact-card-icon {
+            width: 54px;
+            height: 54px;
+            flex-shrink: 0;
+            background: var(--light);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--teal);
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover .contact-card-icon {
+            background: var(--teal);
+            color: white;
+        }
+
+        .contact-card-label {
+            font-size: 0.75rem;
+            color: var(--grey);
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .contact-card-value {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 1rem;
+        }
+
+        .call-cta-box {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .call-cta-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .call-cta-box p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 28px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .call-btn-big {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: var(--red);
+            color: white;
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-decoration: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            animation: call-pulse 3s ease-in-out infinite;
+        }
+
+        .call-btn-big:hover {
+            transform: scale(1.05);
+        }
+
+        .call-services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .call-service-tag {
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #081e28;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            height: 50px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1) opacity(0.7);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--teal-light);
+        }
+
+        .footer-copy {
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* ===== STICKY CALL ===== */
+        .sticky-call {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .sticky-call-btn {
+            width: 62px;
+            height: 62px;
+            background: var(--red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 0 6px 30px rgba(230, 51, 41, 0.5);
+            animation: sticky-pulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes sticky-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 6px 30px rgba(230, 51, 41, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 6px 50px rgba(230, 51, 41, 0.8), 0 0 0 15px rgba(230, 51, 41, 0.1);
+            }
+        }
+
+        .sticky-label {
+            background: var(--navy);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-image-wrap {
+                order: -1;
+            }
+
+            .hero-img-frame img {
+                height: 340px;
+            }
+
+            .hero-floating-card {
+                display: none;
+            }
+
+            .hero-floating-card2 {
+                display: none;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hours-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 16px;
+            }
+
+            .about-badge {
+                right: 0;
+                bottom: -16px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a class="nav-logo" href="#home"><img src="logo.png" alt="Doctor Movement" /></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Our Expert</a></li>
+                <li><a href="#hours">Hours</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a class="nav-cta" href="tel:+918848671183">
+                <i class="fa-solid fa-phone"></i> Call Now
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#about"><i class="fa-solid fa-circle-info"></i> About</a>
+            <a href="#services"><i class="fa-solid fa-hand-holding-medical"></i> Services</a>
+            <a href="#team"><i class="fa-solid fa-user-doctor"></i> Our Expert</a>
+            <a href="#hours"><i class="fa-solid fa-clock"></i> Hours</a>
+            <a href="#contact"><i class="fa-solid fa-location-dot"></i> Contact</a>
+            <a class="mobile-cta" href="tel:+918848671183"><i class="fa-solid fa-phone"></i> Call Now: 8848671183</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg-circles">
+            <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="floating-dots">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-circle-dot"></i>
+                    Now Open — Homecare & Online Available
+                </div>
+                <h1 class="hero-title">
+                    Restore Your <span class="accent">Movement,</span><br>
+                    Reclaim Your <span class="red-accent">Life.</span>
+                </h1>
+                <p class="hero-desc">
+                    Expert physiotherapy care in Chathannoor, Kerala. Led by Dr. Dary Santhosh (PT),
+                    we bring healing through evidence-based treatments — at our clinic or your home.
+                </p>
+                <div class="hero-actions">
+                    <a class="btn-primary" href="tel:+918848671183">
+                        <i class="fa-solid fa-phone-volume"></i> Book an Appointment
+                    </a>
+                    <a class="btn-secondary" href="#services">
+                        <i class="fa-solid fa-arrow-down"></i> Our Services
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-num">500+</div>
+                        <div class="stat-label">Patients Helped</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <div class="stat-num">6+</div>
+                        <div class="stat-label">Therapies Offered</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat">
+                        <div class="stat-num">7</div>
+                        <div class="stat-label">Days a Week</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image-wrap">
+                <div class="hero-img-frame">
+                    <img src="image.png" alt="Physiotherapy session at Doctor Movement Clinic" />
+                    <div class="hero-img-overlay"></div>
+                </div>
+                <div class="hero-floating-card">
+                    <div class="hero-fc-icon">🏥</div>
+                    <div>
+                        <div class="hero-fc-title">Homecare Available</div>
+                        <div class="hero-fc-sub">We come to you, anywhere in Kerala</div>
+                    </div>
+                </div>
+                <div class="hero-floating-card2">
+                    <div class="hero-fc2-label"><span class="hero-green-dot"></span>Open Today</div>
+                    <div class="hero-fc2-value">8 AM – 9:30 PM</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker-wrap">
+        <div class="ticker-inner">
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Manual Therapy <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Dry Needling <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Cupping Therapy <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Taping <span class="ticker-sep">·</span>
+            </div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Electrotherapy <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Online Consultation <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Homecare Services <span
+                    class="ticker-sep">·</span></div>
+            <!-- duplicate for seamless loop -->
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Manual Therapy <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Dry Needling <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Cupping Therapy <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Taping <span class="ticker-sep">·</span>
+            </div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Electrotherapy <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Online Consultation <span
+                    class="ticker-sep">·</span></div>
+            <div class="ticker-item"><i class="fa-solid fa-check-circle"></i> Homecare Services <span
+                    class="ticker-sep">·</span></div>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="section-inner">
+            <div class="about-grid">
+                <div class="about-img-wrap reveal">
+                    <div class="about-img">
+                        <img src="image.png" alt="Physiotherapy treatment" />
+                    </div>
+                    <div class="about-badge">
+                        <div class="about-badge-num">100%</div>
+                        <div class="about-badge-txt">Patient Satisfaction</div>
+                    </div>
+                </div>
+                <div class="reveal reveal-delay-2">
+                    <div class="section-tag">About Us</div>
+                    <h2 class="section-title">Your Trusted Partner in <em>Pain-Free Living</em></h2>
+                    <p class="section-desc">
+                        Doctor Movement Physiotherapy Clinic is dedicated to providing world-class physiotherapy
+                        services in Chathannoor, Kerala. Under the expert guidance of <strong>Dr. Dary Santhosh
+                            (PT)</strong>,
+                        we combine modern techniques with compassionate care to get you back to doing what you love.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feat">
+                            <div class="about-feat-icon"><i class="fa-solid fa-house-medical"></i></div>
+                            <div>
+                                <div class="about-feat-title">Homecare Services</div>
+                                <div class="about-feat-desc">Professional physiotherapy delivered right at your doorstep
+                                    — convenient, safe, and effective.</div>
+                            </div>
+                        </div>
+                        <div class="about-feat">
+                            <div class="about-feat-icon"><i class="fa-solid fa-video"></i></div>
+                            <div>
+                                <div class="about-feat-title">Online Consultation</div>
+                                <div class="about-feat-desc">Get expert advice and guided sessions from the comfort of
+                                    your home via video call.</div>
+                            </div>
+                        </div>
+                        <div class="about-feat">
+                            <div class="about-feat-icon"><i class="fa-solid fa-award"></i></div>
+                            <div>
+                                <div class="about-feat-title">Evidence-Based Treatments</div>
+                                <div class="about-feat-desc">Every treatment plan is grounded in the latest
+                                    physiotherapy research and clinical expertise.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+        <div class="section-inner">
+            <div class="services-header">
+                <div class="reveal">
+                    <div class="section-tag">What We Offer</div>
+                    <h2 class="section-title">Expert Therapies<br>for Every Need</h2>
+                </div>
+                <p class="section-desc reveal reveal-delay-2" style="max-width:360px;">
+                    From acute injuries to chronic pain — we have the right treatment to restore your function and
+                    quality of life.
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-num">01</div>
+                    <div class="service-icon"><i class="fa-solid fa-bandage"></i></div>
+                    <div class="service-name">Taping</div>
+                    <p class="service-desc">Kinesio and rigid taping to support muscles and joints, reduce pain, and
+                        accelerate recovery without restricting movement.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-num">02</div>
+                    <div class="service-icon"><i class="fa-solid fa-circle-nodes"></i></div>
+                    <div class="service-name">Cupping Therapy</div>
+                    <p class="service-desc">Traditional cupping techniques enhanced with modern physiotherapy to improve
+                        circulation, reduce muscle tension, and relieve pain.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-num">03</div>
+                    <div class="service-icon"><i class="fa-solid fa-syringe"></i></div>
+                    <div class="service-name">Dry Needling</div>
+                    <p class="service-desc">Targeted trigger point release using fine needles to treat myofascial pain,
+                        muscle tightness, and dysfunction effectively.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-1">
+                    <div class="service-num">04</div>
+                    <div class="service-icon"><i class="fa-solid fa-hands"></i></div>
+                    <div class="service-name">Manual Therapy</div>
+                    <p class="service-desc">Hands-on techniques including joint mobilisation, manipulation, and soft
+                        tissue therapy to restore mobility and reduce pain.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-2">
+                    <div class="service-num">05</div>
+                    <div class="service-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="service-name">Electrotherapy</div>
+                    <p class="service-desc">Advanced electrotherapy modalities including TENS, ultrasound, and IFT for
+                        pain management and tissue healing.</p>
+                </div>
+                <div class="service-card reveal reveal-delay-3">
+                    <div class="service-num">06</div>
+                    <div class="service-icon"><i class="fa-solid fa-house-laptop"></i></div>
+                    <div class="service-name">Homecare & Online</div>
+                    <p class="service-desc">Full physiotherapy services at home, plus online video consultations so you
+                        get expert care wherever you are in Kerala.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team">
+        <div class="section-inner" style="text-align:center;">
+            <div class="reveal">
+                <div class="section-tag team-section-tag" style="justify-content:center;">Meet Our Expert</div>
+                <h2 class="section-title team-title">The Expert Behind<br>Your Recovery</h2>
+                <p class="section-desc team-desc" style="margin:0 auto;">
+                    Our clinic is led by a dedicated physiotherapy professional committed to transforming lives.
+                </p>
+            </div>
+            <div class="team-card reveal reveal-delay-2">
+                <div class="team-avatar"><i class="fa-solid fa-user-doctor"></i></div>
+                <div class="team-name">Dr. Dary Santhosh</div>
+                <div class="team-role">PT — Founder & Lead Physiotherapist</div>
+                <div class="team-tags">
+                    <span class="team-tag">Manual Therapy</span>
+                    <span class="team-tag">Dry Needling</span>
+                    <span class="team-tag">Sports Rehab</span>
+                    <span class="team-tag">Neurology</span>
+                    <span class="team-tag">Orthopaedics</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <div class="cta-band">
+        <div class="cta-inner">
+            <h2 class="cta-title">Stop Living With Pain. <br>Call Us Today.</h2>
+            <p class="cta-sub">Our experts are ready to create a personalised treatment plan just for you. Don't wait —
+                every day without care is a day lost.</p>
+            <a class="cta-phone" href="tel:+918848671183">
+                <span class="phone-icon"><i class="fa-solid fa-phone"></i></span>
+                88486 71183
+            </a>
+            <p class="cta-note"><i class="fa-solid fa-clock"></i> Open 7 Days a Week · 8:00 AM – 9:30 PM</p>
+        </div>
+    </div>
+
+    <!-- HOURS & MAP -->
+    <section id="hours">
+        <div class="section-inner">
+            <div class="reveal" style="margin-bottom:48px;">
+                <div class="section-tag">Find Us</div>
+                <h2 class="section-title">Clinic Hours & Location</h2>
+            </div>
+            <div class="hours-grid">
+                <div class="reveal">
+                    <div class="hours-table">
+                        <div class="hours-row today">
+                            <div>
+                                <div class="hours-day">Friday</div>
+                            </div>
+                            <div class="hours-time">8:00 AM – 9:30 PM</div>
+                        </div>
+                        <div class="hours-row">
+                            <div>
+                                <div class="hours-day">Saturday</div>
+                            </div>
+                            <div class="hours-time">8:00 AM – 9:30 PM</div>
+                        </div>
+                        <div class="hours-row">
+                            <div>
+                                <div class="hours-day">Sunday</div>
+                            </div>
+                            <div class="hours-time">8:00 AM – 10:00 PM</div>
+                        </div>
+                        <div class="hours-row">
+                            <div>
+                                <div class="hours-day">Monday</div>
+                            </div>
+                            <div class="hours-time">8:00 AM – 9:30 PM</div>
+                        </div>
+                        <div class="hours-row">
+                            <div>
+                                <div class="hours-day">Tuesday</div>
+                                <div class="hours-note">Hours may differ on public holidays</div>
+                            </div>
+                            <div class="hours-time">8:00 AM – 9:30 PM</div>
+                        </div>
+                        <div class="hours-row">
+                            <div>
+                                <div class="hours-day">Wednesday</div>
+                                <div class="hours-note">Hours may differ on public holidays</div>
+                            </div>
+                            <div class="hours-time">8:00 AM – 9:30 PM</div>
+                        </div>
+                        <div class="hours-row">
+                            <div>
+                                <div class="hours-day">Thursday</div>
+                            </div>
+                            <div class="hours-time">8:00 AM – 9:30 PM</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal reveal-delay-2">
+                    <div class="map-wrap">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3942.173481278878!2d76.713555!3d8.8634364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05e5005a8e1fb1%3A0x5680f62d4e466db6!2sDoctor%20movement!5e0!3m2!1sen!2sin!4v1779424279921!5m2!1sen!2sin"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    <div class="address-card">
+                        <div class="address-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="address-text">
+                            Near GGK Hypermarket, Chathannoor, Kerala – 691572<br>
+                            <strong style="color:white;">Doctor Movement Physiotherapy Clinic</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="section-inner">
+            <div class="contact-grid">
+                <div class="reveal">
+                    <div class="section-tag">Get In Touch</div>
+                    <h2 class="section-title">Ready to Start Your Recovery?</h2>
+                    <p class="section-desc" style="margin-bottom:32px;">
+                        Reach out to us for appointments, homecare bookings, or online consultations. We're here to
+                        help.
+                    </p>
+                    <div class="contact-cards">
+                        <a class="contact-card" href="tel:+918848671183">
+                            <div class="contact-card-icon"><i class="fa-solid fa-phone"></i></div>
+                            <div>
+                                <div class="contact-card-label">Call / WhatsApp</div>
+                                <div class="contact-card-value">+91 88486 71183</div>
+                            </div>
+                            <i class="fa-solid fa-arrow-right" style="margin-left:auto;color:var(--teal);"></i>
+                        </a>
+                        <div class="contact-card">
+                            <div class="contact-card-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <div class="contact-card-label">Clinic Address</div>
+                                <div class="contact-card-value">Near GGK Hypermarket, Chathannoor, Kerala 691572</div>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-card-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div>
+                                <div class="contact-card-label">Working Hours</div>
+                                <div class="contact-card-value">8:00 AM – 9:30 PM (Sun till 10 PM)</div>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-card-icon"><i class="fa-solid fa-house-medical"></i></div>
+                            <div>
+                                <div class="contact-card-label">Also Available</div>
+                                <div class="contact-card-value">Homecare · Online Consultation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal reveal-delay-2">
+                    <div class="call-cta-box">
+                        <h3>Book Your Session Now</h3>
+                        <p>Call us directly or save our number for WhatsApp. We're open 7 days a week and ready to help
+                            you heal.</p>
+                        <a class="call-btn-big" href="tel:+918848671183">
+                            <i class="fa-solid fa-phone-volume"></i> 88486 71183
+                        </a>
+                        <div class="call-services">
+                            <span class="call-service-tag">Taping</span>
+                            <span class="call-service-tag">Cupping</span>
+                            <span class="call-service-tag">Dry Needling</span>
+                            <span class="call-service-tag">Manual Therapy</span>
+                            <span class="call-service-tag">Electrotherapy</span>
+                            <span class="call-service-tag">Homecare</span>
+                            <span class="call-service-tag">Online</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <img class="footer-logo" src="logo.png" alt="Doctor Movement" />
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#team">Our Expert</a>
+                <a href="#hours">Hours</a>
+                <a href="#contact">Contact</a>
+                <a href="tel:+918848671183">88486 71183</a>
+            </div>
+            <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);">Near GGK Hypermarket, Chathannoor, Kerala 691572
+            </p>
+            <p class="footer-copy">© 2025 Doctor Movement Physiotherapy Clinic. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- STICKY CALL BUTTON -->
+    <div class="sticky-call">
+        <div class="sticky-label">📞 Tap to Call</div>
+        <a class="sticky-call-btn" href="tel:+918848671183" aria-label="Call now">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    </div>
+
+    <script>
+        // Nav toggle
+        const toggle = document.getElementById('navToggle');
+        const menu = document.getElementById('mobileMenu');
+        let open = false;
+        toggle.addEventListener('click', () => {
+            open = !open;
+            menu.classList.toggle('open', open);
+            toggle.innerHTML = open
+                ? '<i class="fa-solid fa-xmark"></i>'
+                : '<i class="fa-solid fa-bars"></i>';
+        });
+        // Close on link click
+        menu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                open = false;
+                menu.classList.remove('open');
+                toggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+            });
+        });
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); }
+            });
+        }, { threshold: 0.12 });
+        reveals.forEach(r => observer.observe(r));
+
+        // Nav shadow on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 40px rgba(0,0,0,0.12)';
+            } else {
+                nav.style.boxShadow = '0 2px 30px rgba(26,156,160,0.1)';
+            }
+        });
+
+        // Animated counter
+        function animateCount(el, target, suffix = '') {
+            let current = 0;
+            const step = target / 50;
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) { current = target; clearInterval(timer); }
+                el.textContent = Math.floor(current) + suffix;
+            }, 30);
+        }
+        const statNums = document.querySelectorAll('.stat-num');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const txt = e.target.textContent;
+                    const num = parseInt(txt);
+                    const suffix = txt.replace(/[0-9]/g, '');
+                    animateCount(e.target, num, suffix);
+                    statsObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        statNums.forEach(el => statsObserver.observe(el));
+    </script>
+</body>
+
+</html>
